@@ -30,6 +30,7 @@ catalog/includes/application_top.php
 catalog/includes/modules/pages/tp_account.php
 catalog/includes/modules/product_listing.php
 catalog/includes/actions/notify.php
+catalog/includes/languages/english.php
 
 /**************************************************************/
 /**************************************************************/
