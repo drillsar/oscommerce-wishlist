@@ -1,0 +1,88 @@
+Wishlist v3 for Phoenix 1.0.5.0 2020/02/20 
+--------------------------------------------------------------
+
+Contents:
+
+ - INSTALL INSTRUCTIONS
+ - OPTIONAL INSTALL
+ - ADVISORY NOTE
+ 
+Before Installation, BACK UP! BACK UP! BACK UP!
+
+1. Copy all new files with your catalog. It won't rewrite any of your files. Just copy & paste on top.
+2. Modify the following files as per instructions below.
+3. Setup - Your Admin area
+        Go to Modules -> Boxes and install the wishlist box module
+        Go to Modules -> Content and install the product_info wishlist module
+        Go to Modules -> Content and install account wishlist module
+        Go to Modules -> Navbar Modules and install wishlist module
+        Go to Modules -> Action Recorder and install the wishlist module
+
+The following files do change the core and all changes are marked with //BOF WISHLIST and //EOF WISHLIST
+
+Catalog side changed files:
+
+catalog/checkout_process.php
+catalog/logoff.php
+catalog/login.php
+catalog/create_account.php
+catalog/includes/application_top.php
+catalog/includes/modules/pages/tp_account.php
+catalog/includes/modules/product_listing.php
+catalog/includes/actions/notify.php
+
+/**************************************************************/
+/**************************************************************/
+
+Admin side changed files:
+
+admin/includes/functions/general.php
+admin/customers.php
+
+New Files:
+
+catalog/wishlist.php
+catalog/wishlist_public.php
+catalog/includes/classes/wishlist.php
+catalog/includes/languages/english/wishlist.php
+catalog/includes/languages/english/modules/action_recorder/ar_wish_list.php
+catalog/includes/languages/english/modules/boxes/bm_wishlist.php
+catalog/includes/languages/english/modules/content/product_info/cm_pi_wishlist.php
+catalog/includes/modules/action_recorder/ar_wish_list.php
+catalog/includes/modules/boxes/bm_wishlist.php
+catalog/includes/modules/boxes/templates/tpl_bm_wishlist.php
+catalog/includes/modules/content/product_info/cm_pi_wishlist.php
+catalog/includes/modules/content/product_info/templates/tpl_cm_pi_wishlist.php
+
+******************************************************************************************************************
+EOF INSTALL INSTRUCTIONS
+******************************************************************************************************************
+
+
+catalog/includes/modules/product_listing.php
+
+ADD THIS WHERE YOU WANT TO SHOW THE BUTTON :
+
+$prod_list_contents .= '       <div class="col-xs-6">' . tep_draw_button(TEXT_ADD_WISHLIST, 'glyphicon glyphicon-heart', tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=add_to_wishlist&products_id=' . $listing['products_id']), NULL, NULL, 'btn-default btn-sm') . '</div>';
+
+******************************************************************************************************************
+EOF OPTIONAL INSTALL
+******************************************************************************************************************
+-------------------------------------------------------------------------------
+ADVISORY NOTE:
+-------------------------------------------------------------------------------
+Thanks to wdepot for this note! All credits to him.
+
+One person who installed this contribution found that a couple of customers with huge wish lists (well over 600 items each) had trouble logging in. 
+We finally discovered that the problem wasn't with Wish List itself but with the size allowed for session values in the sessions table. 
+If your web site uses the sessions table to store $_SESSION variables as is the default for osCommerce (STORE_SESSIONS is defined in includes/configure.php as 'mysql') you could end up with the same problem. 
+It happens because the wish list, like the shopping cart, is a session variable. By default the Value field in the sessions table is defined as type TEXT which allows for 64KB of total session variables. 
+After some tests it seems the initial item in a wish list takes up around 555 bytes and each additional item adds at least 71 bytes more. 
+Once the wish list size gets close to the 700 item mark it simply gets too big for the Value field of the sessions table. 
+Since MySQL truncates extra data when the amount of data exceeds the size of the field data would be lost and problems would begin. 
+If you ever run into the same problem on your web site the solution is simply to change the type of the Value field in the sessions table from TEXT to MEDIUMTEXT. 
+This will increase the total size available for all $_SESSION variables in one session to 16MB, which is sufficient for a wish list of over 170,000 items, more than enough for what is ever likely in a real world situation.
+
+******************************************************************************************************************
+EOF ADVISORY NOTE
+******************************************************************************************************************
