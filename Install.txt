@@ -54,7 +54,6 @@ catalog/includes/modules/boxes/bm_wishlist.php
 catalog/includes/modules/boxes/templates/tpl_bm_wishlist.php
 catalog/includes/modules/content/product_info/cm_pi_wishlist.php
 catalog/includes/modules/content/product_info/templates/tpl_cm_pi_wishlist.php
-catalog/includes/hooks/checkout_process.php/wishlist.php
 
 ******************************************************************************************************************
 EOF INSTALL INSTRUCTIONS
