@@ -282,7 +282,7 @@
 // initialize the message stack for output messages
   $messageStack = new messageStack;
 
-/ BOF WISHLIST
+// BOF WISHLIST
 $OSCOM_Hooks->register('wishlist');
 echo $OSCOM_Hooks->call('wishlist', 'WishListMod');
 // EOF WISHLIST
