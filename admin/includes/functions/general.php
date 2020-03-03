@@ -968,9 +968,7 @@
     tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where products_id = '" . (int)$product_id . "' or products_id like '" . (int)$product_id . "{%'");
 
 // BOF WISHLIST
-// Wishlist addition to delete products from the wishlist when product deleted
-    tep_db_query("delete from customers_wishlist where products_id = '" . (int)$product_id . "' or products_id like '" . (int)$product_id . "{%'");
-    tep_db_query("delete from customers_wishlist_attributes where products_id = '" . (int)$product_id . "' or products_id like '" . (int)$product_id . "{%'");
+    echo $OSCOM_Hooks->call('wishlist', 'WishListMod');
 // EOF WISHLIST
 
     $product_reviews_query = tep_db_query("select reviews_id from " . TABLE_REVIEWS . " where products_id = '" . (int)$product_id . "'");

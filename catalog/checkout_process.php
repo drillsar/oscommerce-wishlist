@@ -287,8 +287,7 @@
   $payment_modules->after_process();
 
 // BOF WISHLIST
-// remove items from wishlist if customer purchased them
-  $wishList->clear();
+  echo $OSCOM_Hooks->call('wishlist', 'WishListModClear');
 // EOF WISHLIST
 
   $cart->reset(true);

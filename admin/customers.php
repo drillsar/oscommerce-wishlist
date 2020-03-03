@@ -220,9 +220,7 @@
         tep_db_query("delete from " . TABLE_WHOS_ONLINE . " where customer_id = '" . (int)$customers_id . "'");
 
 // BOF WISHLIST
-// Wishlist addition to delete products from the wishlist when customer deleted
-        tep_db_query("delete from customers_wishlist where customers_id = " . (int)$customers_id);
-        tep_db_query("delete from customers_wishlist_attributes where customers_id = " . (int)$customers_id);
+        echo $OSCOM_Hooks->call('wishlist', 'WishListModCustomer');
 // EOF WISHLIST
 
         tep_redirect(tep_href_link('customers.php', tep_get_all_get_params(array('cID', 'action'))));

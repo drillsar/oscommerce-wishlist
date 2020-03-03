@@ -236,8 +236,7 @@
       $cart->restore_contents();
 
 // BOF WISHLIST
-// restore wishlist to sesssion
-      $wishList->restore_wishlist();
+      echo $OSCOM_Hooks->call('wishlist', 'WishListModRestore');
 // EOF WISHLIST
 
 // build the message content

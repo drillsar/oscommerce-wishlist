@@ -45,7 +45,7 @@ if ( tep_session_is_registered('comments') ) {
   $cart->reset();
 
 // BOF WISHLIST
-  $wishList->reset();
+  echo $OSCOM_Hooks->call('wishlist', 'WishListModReset');
 // EOF WISHLIST
 
   require('includes/template_top.php');

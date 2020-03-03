@@ -61,8 +61,7 @@
     $cart->restore_contents();
 
 // BOF WISHLIST
-// restore wishlist to sesssion
-    $wishList->restore_wishlist();
+    echo $OSCOM_Hooks->call('wishlist', 'WishListModRestore');
 // EOF WISHLIST
 
     if (sizeof($navigation->snapshot) > 0) {
@@ -73,7 +72,7 @@
 
     tep_redirect(tep_href_link('index.php'));
   }
-  
+ 
   require('includes/languages/' . $language . '/login.php');
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link('login.php', '', 'SSL'));
