@@ -4,7 +4,7 @@
     <?php echo $wishlist_box; ?>
   </div>
   <div class="card-footer text-right">
-    <?php echo $wishlist_totalised; ?>
+    <?php echo $wishlist_totalized; ?>
   </div>
 </div>
 
