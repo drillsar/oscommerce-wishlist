@@ -40,5 +40,8 @@ class hook_shop_wishlist_wishlist {
    function listen_WishListModReset() {
      $wishList->reset();
    }
+   function listen_WishListModClear() {
+     $wishList->clear();
+   }
 }
 
