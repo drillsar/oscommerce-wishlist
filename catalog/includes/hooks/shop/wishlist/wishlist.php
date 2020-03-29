@@ -34,8 +34,9 @@ class hook_shop_wishlist_wishlist {
 		if (WISHLIST_REDIRECT ==  'No') tep_redirect(tep_href_link('product_info.php', 'products_id=' . $_POST['products_id']));
 	  tep_redirect(tep_href_link('wishlist.php'));
   }
+  }
 
-   function listen_WishListModRestore() {
+  function listen_WishListModRestore() {
      $wishList->restore_wishlist();
    }
    function listen_WishListModReset() {
