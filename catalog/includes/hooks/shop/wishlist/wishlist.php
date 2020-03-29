@@ -19,21 +19,22 @@ class hook_shop_wishlist_wishlist {
   function listen_WishListMod() {
     global $oscTemplate, $languages_id, $currencies, $wishList;
 
-        if (!tep_session_is_registered('wishList') || !is_object($wishList)) {
-                tep_session_register('wishList');
-                $wishList = new wishlist;
-        }
-
-
+      	if (!tep_session_is_registered('wishList') || !is_object($wishList)) {
+		      tep_session_register('wishList');
+		      $wishList = new wishlist;
+	      }
+	
   if (isset($_POST['wishlist'])) {
-          if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
+	  if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
       $attributes = isset($_POST['id']) ? $_POST['id'] : '';
-      $wishList->add_wishlist($_POST['products_id'], $wishList->get_quantity(tep_get_uprid($_POST['products_id'], $attributes))+1, $attributes);
-          }
-                if (WISHLIST_REDIRECT ==  'No') tep_redirect(tep_href_link('product_info.php', 'products_id=' . $_POST['products_id']));
-          tep_redirect(tep_href_link('wishlist.php'));
+        // php 7
+         $qty = (int)($_POST['qty'] ?? 1);
+      $wishList->add_wishlist($_POST['products_id'], $wishList->get_quantity(tep_get_uprid($_POST['products_id'], $attributes))+$qty, $attributes);
+	  }
+		if (WISHLIST_REDIRECT ==  'No') tep_redirect(tep_href_link('product_info.php', 'products_id=' . $_POST['products_id']));
+	  tep_redirect(tep_href_link('wishlist.php'));
   }
-}
+
    function listen_WishListModRestore() {
      $wishList->restore_wishlist();
    }
