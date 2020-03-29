@@ -1,4 +1,4 @@
-Wishlist v3 for Phoenix 1.0.5.0 2020/02/20 
+Wishlist v3 for Phoenix 1.0.5.5 2020/03/26 
 --------------------------------------------------------------
 
 Contents:
@@ -58,7 +58,43 @@ catalog/includes/modules/content/product_info/templates/tpl_cm_pi_wishlist.php
 ******************************************************************************************************************
 EOF INSTALL INSTRUCTIONS
 ******************************************************************************************************************
+This module now introduces hooks for easier installation and minimal core changes
 
+catalog/checkout_process 
+look for $payment_modules->after_process(); 
+add this after
+/ BOF WISHLIST
+  echo $OSCOM_Hooks->call('wishlist', 'WishListModClear');
+// EOF WISHLIST
+
+catalog/create_account.php
+look for $cart->restore_contents();
+add this after
+// BOF WISHLIST
+   echo $OSCOM_Hooks->call('wishlist', 'WishListModRestore');
+// EOF WISHLIST
+
+catalog/login.php
+look for $cart->restore_contents();
+add this after
+// BOF WISHLIST
+   echo $OSCOM_Hooks->call('wishlist', 'WishListModRestore');
+// EOF WISHLIST
+
+catalog/logoff.php
+look for $cart->reset();
+add this after
+// BOF WISHLIST
+  echo $OSCOM_Hooks->call('wishlist', 'WishListModReset');
+// EOF WISHLIST
+
+catalog/application_top.php
+look for // Shopping cart actions
+add this before
+// BOF WISHLIST
+$OSCOM_Hooks->register('wishlist');
+echo $OSCOM_Hooks->call('wishlist', 'WishListMod');
+// EOF WISHLIST
 
 catalog/includes/modules/product_listing.php
 
